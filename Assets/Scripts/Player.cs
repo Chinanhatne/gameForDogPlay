@@ -1,3 +1,5 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -35,6 +37,15 @@ public class Player : MonoBehaviour
         {
             animator.SetBool("isWalking",false);
         }
+    }
+
+    private IEnumerator Jump()
+    {
+        gameObject.layer = LayerMask.NameToLayer("PlayerJump");
+        animator.SetBool("isJumping",true);
+        yield return new WaitForSeconds(0.5f);
+        animator.SetBool("isJumping",false);
+        gameObject.layer = LayerMask.NameToLayer("Player");
     }
 
     private void Move(Vector2 direction)
@@ -87,4 +98,6 @@ public class Player : MonoBehaviour
             break;
         }
     }
+
+    
 }
